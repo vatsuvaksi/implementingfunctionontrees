@@ -177,6 +177,102 @@ class node   //creates a node class
 
 
      }
+ static int maxlevel=0;
+     static void leftelementsofbinarytree(node root, int level) // gives the leftmost elements of binary tree that is it gives the view of the tree from the left
+     {
+         if (root==null) return;
+         if(level>=maxlevel)
+         {
+
+             System.out.print(root.data+" ");
+             maxlevel++;
+         }
+         leftelementsofbinarytree(root.left,level+1);
+         leftelementsofbinarytree(root.right,level+1);
+
+     }
+
+     static void rightelementsofbinarytree(node root,int level)// gives the right most elements of the binary tree that is the view from the right hand side of the treee
+     {
+         if (root ==null)
+             return;
+         if(level>=maxlevel)
+         {
+             System.out.print(root.data +" ");
+             maxlevel++;
+         }
+         rightelementsofbinarytree(root.right,level+1);
+         rightelementsofbinarytree(root.left,level+1);
+     }
+
+    static void  leafnodes(node root) // it gives the leaf nodes of the tree
+    {
+        if (root==null) return;
+        else if (root.left==null&&root.right==null) {
+            System.out.print(root.data+" ");
+        return;
+        }
+        leafnodes(root.left);
+        leafnodes(root.right);
+
+    }
+    static node mirrortree(node root) // retruns the mirror image of the  tree
+    {
+        if(root==null) return null;
+
+            node t=root.left;
+            root.left=root.right;
+            root.right=t;
+         mirrortree(root.left);
+         mirrortree(root.right);
+         return root;
+
+
+
+
+    }
+    static void getverticalsumofbinarytree(node root) // gives the vertical sum of the tree separately
+    {
+        if(root==null) return ;
+        HashMap<Integer,Integer> m=new HashMap<>();
+        verticalsum(root,0,m);
+        if(m!=null)
+            System.out.print(m.values());
+
+
+
+
+    }
+    public static void verticalsum(node root,int l,HashMap<Integer,Integer> map) // calculates the sum of vertial nodes that is nodes above or below each other
+    {
+        if(root==null) return;
+        verticalsum(root.left,l-1,map);
+        int sum=(map.get(l)==null)?0:map.get(l);
+        map.put(l,sum+root.data);
+        verticalsum(root.right,l+1,map);
+
+
+
+
+    }
+     static  public int dist = -1; //distance initialize as -1 so that i
+     static int findDistance(node root, int x)
+     {
+         // Base case
+         if (root == null)
+             return -1;
+
+
+
+
+         // Check if x is present at root or in left
+         // subtree or right subtree.
+         if ((root.data == x) || (dist = findDistance(root.left, x)) >= 0 || (dist = findDistance(root.right, x)) >= 0)
+             return dist + 1;
+
+         return dist;
+     }
+//good leaf pair function not done
 
 
 
